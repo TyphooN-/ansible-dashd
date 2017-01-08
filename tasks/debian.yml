@@ -1,0 +1,67 @@
+---
+- name: Debian | Set dashd_loaded_os_family
+  set_fact:
+    dashd_loaded_os_family: "{{ ansible_os_family }}"
+
+- name: Set dashd_version to Stable if testnet=0
+  set_fact:
+    dashd_version: stable
+  when: dashd_testnet == 0
+
+- name: Set dashd_version to Stable if testnet=1
+  set_fact:
+    dashd_version: daily
+  when: dashd_testnet == 1
+
+- name: Set dashd_rpcport to 9998 if testnet=0
+  set_fact:
+    dashd_rpcport: 9998
+  when: dashd_testnet == 0
+
+- name: Set dashd_rpcport to 19998 if testnet=1
+  set_fact:
+    dashd_rpcport: 19998
+  when: dashd_testnet == 1
+
+- name: Debian | Add Stable dashd repository
+  apt_repository:
+    repo='ppa:dash.org/dash'
+    state=present
+  register: repo_added
+  when: dashd_version=="stable"
+  become: true
+
+- name: Debian | Add Daily dashd repository
+  apt_repository:
+    repo='ppa:dash.org/dash'
+    state=present
+  register: repo_added
+  when: dashd_version=="daily"
+  become: true
+
+- name: Debian | Update apt cache
+  apt:
+    update_cache=yes
+  when: repo_added.changed
+  become: true
+
+- name: Debian | Install dashd
+  apt:
+    name=dashd
+    state=latest
+  notify: Restart dashd
+  become: true
+
+- name: Add dashd group
+  group: name={{ dashd_group }} state=present
+  become: true
+
+- name: Add dashd user
+  user:
+    name={{ dashd_user }}
+    group={{ dashd_group }}
+    createhome=yes
+    system=yes
+    state=present
+  become: true
+

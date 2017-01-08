@@ -1,0 +1,8 @@
+[program:dashd]
+command=/usr/bin/dashd -datadir={{ dashd_datadir }}
+autostart=true
+autorestart=true
+startretries=5
+stderr_logfile=/var/log/dashd/dashd.err.log
+stdout_logfile=/var/log/dashd/dashd.out.log
+user={{ dashd_user }}

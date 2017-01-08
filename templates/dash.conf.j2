@@ -1,0 +1,34 @@
+testnet={{ dashd_testnet }}
+{% if dashd_proxy|default(False) != False %}
+proxy={{ dashd_proxy }}
+{% else %}
+#proxy=127.0.0.1:9050
+{% endif %}
+maxconnections={{ dashd_maxconnections }}
+server={{ dashd_server }}
+rpcuser={{ dashd_rpcuser }}
+rpcpassword={{ dashd_rpcpassword }}
+rpctimeout={{ dashd_rpctimeout }}
+{% for item in dashd_rpcallowip %}
+rpcallowip={{ item }}
+{% endfor %}
+{% if dashd_rpcport %}
+rpcport={{ dashd_rpcport }}
+{% else %}
+#rpcport=19998
+{% endif %}
+gen={{ dashd_gen }}
+txindex={{ dashd_txindex }}
+disablewallet={{ dashd_disablewallet }}
+{% if dashd_blocknotify %}
+blocknotify={{ dashd_blocknotify }}
+{% endif %}
+{% if dashd_debug is string %}
+debug={{ dashd_debug }}
+{% endif %}
+{% if dashd_rpcworkqueue %}
+rpcworkqueue={{dashd_rpcworkqueue}}
+{% endif %}
+{% if dashd_maxmempool %}
+maxmempool={{ dashd_maxmempool }}
+{% endif %}

@@ -1,0 +1,10 @@
+---
+- name: Update supervisor
+  command:  supervisorctl update
+  become: true
+
+- name: Restart dashd
+  supervisorctl:
+    name=dashd
+    state=restarted
+  become: true

@@ -1,0 +1,38 @@
+---
+
+- name: Check for RPC user
+  fail:
+    msg: "Server mode is set and dashd_rpcuser has not been defined"
+  when: dashd_server == 1 and dashd_rpcuser|default(False) == False
+
+- name: Check for RPC password
+  fail:
+    msg: "Server mode is set and dashd_rpcpassword has not been defined"
+  when: dashd_server == 1 and dashd_rpcpassword|default(False) == False
+
+- debug: msg="data directory is {{ dashd_datadir }}"
+
+- include: ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- include: default.yml
+  when: dashd_loaded_os_family|default(False) == False
+
+- name: Ensure dashd_datadir exists
+  file:
+    path={{ dashd_datadir }}
+    state=directory
+    owner={{ dashd_user }}
+    group={{ dashd_group }}
+  become: true
+
+- name: Configure dashd
+  template:
+    src=dash.conf.j2
+    dest={{ dashd_datadir }}/dash.conf
+    owner={{ dashd_user }}
+    group={{ dashd_group }}
+    mode=0600
+  notify:
+    Restart dashd
+  become: true

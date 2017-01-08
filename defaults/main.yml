@@ -1,0 +1,20 @@
+---
+dashd_testnet: 0
+dashd_server: 1
+dashd_proxy: False
+dashd_maxconnections: 125
+dashd_rpctimeout: 30
+dashd_rpcallowip:
+  - "127.0.0.1" 
+dashd_gen: 0
+dashd_txindex: 1
+dashd_disablewallet: 0
+dashd_blocknotify: null
+dashd_datadir: /home/dash/.dash
+dashd_debug: False
+dashd_rpcuser: dashrpc
+dashd_rpcpassword: WhateverRPCPasswordYouWouldLike 
+dashd_rpcworkqueue: 16
+dashd_maxmempool: 300
+dashd_user: dash
+dashd_group: dash

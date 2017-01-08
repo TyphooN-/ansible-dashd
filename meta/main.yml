@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: TyphooN
+  description: Install and configure a dashd service
+  company: Genitrust 
+  license: MIT
+  min_ansible_version: 1.4
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+  categories:
+    - development
+dependencies: []

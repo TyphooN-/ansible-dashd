@@ -1,0 +1,33 @@
+---
+- include: debian.yml
+
+- name: Create log dir
+  file:
+    path=/var/log/dashd
+    state=directory
+    owner={{ dashd_user }} group={{ dashd_group }} mode=0755
+  become: true
+
+- name: Add supervisor
+  apt:
+    name=supervisor
+    state=latest
+  notify: Restart supervisor
+  become: true
+
+- name: Ensure supervisor is enabled and started
+  service:
+    name=supervisor
+    state=started
+    enabled=yes
+  become: true
+
+- name: Copy supervisor configuration
+  template:
+    src=supervisor-dashd.conf.j2
+    dest=/etc/supervisor/conf.d/dashd.conf
+    owner=root group=root mode=0644
+  notify:
+    - Update supervisor
+    - Restart dashd
+  become: true
