@@ -73,4 +73,4 @@ MIT
 Acknowledgements
 ----------------
 
-Lots of inspiration from: <https://github.com/sivel/ansible-newrelic>, thx!
+Inspiration from: https://github.com/sivel/ansible-newrelic and https://github.com/challengerdeep/ansible-bitcoind
