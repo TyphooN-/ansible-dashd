@@ -62,7 +62,7 @@ Available options (and there default values) are:
 Example Playbook
 ----------------
 
-dashd.yml is included as an example
+dashd.yml is included as an example.  Also, edit defaults/main.yml to configure the daemon, to make it suitable for your own use.
 
 
 License
